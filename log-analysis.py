@@ -7,7 +7,6 @@ def connect(database_name="news"):
                 db = psycopg2.connect("dbname={}".format(database_name))
                 cursor = db.cursor()
                 return db, cursor
-                print("It worked")
         except:
                 print("Error! Could not connect to database")
 
@@ -19,7 +18,7 @@ def most_popular():
     query = """
          SELECT articles.title, count(log.path) as popularity
          FROM articles LEFT JOIN log
-         ON log.path like CONCAT('%', articles.slug, '%')
+         ON log.path = '/article/' || articles.slug
          WHERE log.status != '404 NOT FOUND'
          GROUP BY articles.title
          ORDER BY popularity DESC
@@ -28,10 +27,9 @@ def most_popular():
     c.execute(query)
     result = c.fetchall()
     db.close()
-    print("1. What are the most popular three articles of all time?")
-    for r in result:
-            print("%s - %s views" % (r[0], r[1]))
-
+    print("1. What are the most popular three articles of all time? \n")
+    for title, views in result:
+        print("\"{}\" -- {} views".format(title, views))
 most_popular()
 
 # 2. Who are the most popular article authors of all time?
@@ -47,7 +45,7 @@ def author_popularity():
             (SELECT articles.author AS author_id,
          count(log.path) AS popularity
         FROM articles
-        LEFT JOIN log ON log.path LIKE CONCAT('%', articles.slug, '%')
+        LEFT JOIN log ON log.path = '/article/' || articles.slug
         WHERE log.status != '404 NOT FOUND'
         GROUP BY articles.author) AS top
         WHERE top.author_id = authors.id
@@ -57,9 +55,9 @@ def author_popularity():
     c.execute(query)
     result = c.fetchall()
     db.close()
-    print("Who are the most popular article authors of all time?")
-    for r in result:
-            print("%s - %s views" % (r[0], r[1]))
+    print("2. Who are the most popular article authors of all time? \n")
+    for title, views in result:
+        print("\"{}\" -- {} views".format(title, views))
 
 author_popularity()
 
@@ -88,8 +86,8 @@ def errors():
     c.execute(query)
     result = c.fetchall()
     db.close()
-    print("3. On which days did more than 1% of requests lead to errors?")
+    print("3. On which days did more than 1% of requests lead to errors? \n")
     for r in result:
-        print("%s - %s%%" % (r[0], r[1]))
+        print('{0:%B %d, %Y} - {1}% errors'.format(r[0],r[1]))
 
 errors()
