@@ -8,14 +8,15 @@
 
 ## Installation
 
->Install VirtualBox
->Install Vagrant
->Download the VM configuration
+> Install VirtualBox
+
+> Install Vagrant
+> Download the VM configuration
 - https://github.com/udacity/fullstack-nanodegree-vm
->Download SQL Log File
+> Download SQL Log File
 - https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip
->Extract newsdata.sql into vagrant directory of VM configuration's
->Using terminal CD to VM configuration vagrant directory and run
+> Extract newsdata.sql into vagrant directory of VM configuration's
+> Using terminal CD to VM configuration vagrant directory and run
 - `vagrant up`
 - `vagrant ssh`
 - `cd /vagrant`
