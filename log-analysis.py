@@ -27,7 +27,7 @@ def most_popular():
     c.execute(query)
     result = c.fetchall()
     db.close()
-    print("1. What are the most popular three articles of all time? \n")
+    print("\n1. What are the most popular three articles of all time?")
     for title, views in result:
         print("\"{}\" -- {} views".format(title, views))
 most_popular()
@@ -55,7 +55,7 @@ def author_popularity():
     c.execute(query)
     result = c.fetchall()
     db.close()
-    print("2. Who are the most popular article authors of all time? \n")
+    print("\n2. Who are the most popular article authors of all time?")
     for title, views in result:
         print("\"{}\" -- {} views".format(title, views))
 
@@ -86,7 +86,7 @@ def errors():
     c.execute(query)
     result = c.fetchall()
     db.close()
-    print("3. On which days did more than 1% of requests lead to errors? \n")
+    print("\n3. On which days did more than 1% of requests lead to errors?")
     for r in result:
         print('{0:%B %d, %Y} - {1}% errors'.format(r[0],r[1]))
 
